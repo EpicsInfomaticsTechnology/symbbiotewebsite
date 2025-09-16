@@ -8,6 +8,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
   <meta name="description" content="Symbiote Bio Labs — Symbiote Yogurt. Healthy Gut, Healthy You. 300 Billion Probiotic." />
+
+  <!-- Font Awesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     :root {
       --green-light: #81C784;
@@ -35,14 +39,44 @@
 
     .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
 
-    header { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    /* ✅ Fixed Navbar */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--bg);
+      padding: 12px 16px;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: background .4s, color .4s;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .container {
+      padding-top: 120px; /* prevent content overlap */
+    }
+
     .brand { display: flex; align-items: center; gap: 12px; }
     .brand img { width: 72px; height: auto; }
     .brand h1 { font-size: clamp(18px, 4vw, 22px); letter-spacing: 1px; }
     .brand p { font-weight: 600; color: var(--green-mid); margin:0; }
 
-    nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-    nav a { color: var(--text); text-decoration: none; font-weight: 600; position: relative; }
+    /* ✅ Scrollable navbar */
+    nav {
+      margin-left: auto;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 12px;
+      align-items: center;
+      overflow-x: auto;
+      scrollbar-width: none; /* Firefox */
+    }
+    nav::-webkit-scrollbar { display: none; } /* Chrome, Safari */
+
+    nav a { color: var(--text); text-decoration: none; font-weight: 600; position: relative; white-space: nowrap; }
     nav a::after {
       content:"";
       position:absolute;
@@ -64,6 +98,7 @@
       padding:6px 12px;
       border-radius:8px;
       transition: background .3s;
+      white-space: nowrap;
     }
     .toggle-btn:hover { background: var(--green-dark); }
 
@@ -105,13 +140,34 @@
     .contact button { justify-self:start; background: var(--green-mid); color:#fff; border:0; padding:10px 16px; border-radius:8px; font-weight:700; transition: background .3s; }
     .contact button:hover { background: var(--green-dark); }
 
-    footer { margin-top:24px; padding:12px 8px; text-align:center; color:rgba(27,94,32,0.7); transition: color .4s; }
+    footer { 
+      margin-top:24px; 
+      padding:20px 8px; 
+      text-align:center; 
+      color:rgba(27,94,32,0.7); 
+      transition: color .4s; 
+    }
     body.dark footer { color: rgba(200,230,210,0.7); }
+
+    /* ✅ Social icons in footer */
+    .footer-social {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    .footer-social a {
+      color: var(--text);
+      font-size: 22px;
+      transition: color .3s;
+    }
+    .footer-social a:hover {
+      color: var(--green-mid);
+    }
 
     @media (max-width:900px){
       .hero { grid-template-columns: 1fr; }
       .brand img { width: 60px; }
-      nav { justify-content: flex-start; }
     }
     @media (max-width:600px){
       .pill-list { flex-direction: column; gap:6px; }
@@ -139,8 +195,9 @@
       </nav>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero">
-      <div class="hero-card">
+      <div class="hero-card" id="about">
         <span class="kicker">NEW PRODUCT</span>
         <h2>Symbiote Yogurt — Healthy Gut, Healthy You</h2>
         <p class="lead">Packed with <strong>300 Billion Probiotic</strong>, Symbiote Yogurt strengthens gut health naturally.</p>
@@ -194,6 +251,7 @@
       </aside>
     </section>
 
+    <!-- Contact -->
     <section class="contact" id="contact">
       <h2>Contact Us</h2>
       <p>Have questions? Reach out to us!</p>
@@ -206,8 +264,15 @@
       <p id="contactMsg" style="margin-top:8px;font-size:13px;color:#2b5d33"></p>
     </section>
 
+    <!-- Footer -->
     <footer>
       <small>&copy; Symbiote Bio Labs — Healthy Gut, Healthy You.</small>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/symbiotebiolabs/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61579930198292" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.linkedin.com/company/symbiote-bio-labs" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://whatsapp.com/channel/0029VbBN7NnKbYMIcAv3aF0w" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
     </footer>
   </div>
 
