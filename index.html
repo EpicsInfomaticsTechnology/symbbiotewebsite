@@ -17,113 +17,106 @@
       --text: var(--green-dark);
       --glass: rgba(255,255,255,0.72);
     }
-
-    /* 🌙 Dark mode variables */
     body.dark {
       --bg: linear-gradient(180deg, #101b10 0%, #0b140b 100%);
       --text: #e3f3e6;
       --glass: rgba(20,30,20,0.65);
     }
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      -webkit-font-smoothing:antialiased;
-      animation:fadeIn 1s ease-in;
+      -webkit-font-smoothing: antialiased;
       transition: background .4s, color .4s;
+      line-height: 1.5;
     }
 
-    @keyframes fadeIn{
-      from{opacity:0;transform:translateY(10px)}
-      to{opacity:1;transform:translateY(0)}
+    .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+
+    header { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { width: 72px; height: auto; }
+    .brand h1 { font-size: clamp(18px, 4vw, 22px); letter-spacing: 1px; }
+    .brand p { font-weight: 600; color: var(--green-mid); margin:0; }
+
+    nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    nav a { color: var(--text); text-decoration: none; font-weight: 600; position: relative; }
+    nav a::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-3px;
+      width:0;
+      height:2px;
+      background: var(--green-mid);
+      transition: width .3s;
     }
+    nav a:hover::after { width:100%; }
 
-    .container{max-width:1100px;margin:40px auto;padding:24px}
-
-    header{display:flex;align-items:center;gap:20px;animation:slideIn 1s ease-out}
-    @keyframes slideIn{
-      from{opacity:0;transform:translateX(-40px)}
-      to{opacity:1;transform:translateX(0)}
-    }
-
-    .brand{display:flex;align-items:center;gap:16px}
-    .brand img{width:92px;height:auto}
-    .brand h1{font-size:22px;margin:0;letter-spacing:1px}
-    .brand p{margin:0;font-weight:600;color:var(--green-mid)}
-
-    nav{margin-left:auto;display:flex;align-items:center;gap:12px}
-    nav a{color:var(--text);text-decoration:none;font-weight:600;position:relative}
-    nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--green-mid);transition:width .3s}
-    nav a:hover::after{width:100%}
-
-    /* Dark mode toggle button */
     .toggle-btn {
       cursor:pointer;
       border:0;
       background:var(--green-mid);
       color:white;
       font-weight:700;
-      padding:8px 14px;
+      padding:6px 12px;
       border-radius:8px;
-      transition:background .3s;
+      transition: background .3s;
     }
-    .toggle-btn:hover {background:var(--green-dark)}
+    .toggle-btn:hover { background: var(--green-dark); }
 
-    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:28px}
-    .hero-card{background:var(--glass);padding:32px;border-radius:14px;box-shadow:0 10px 30px rgba(27,94,32,0.06);animation:fadeInUp 1.2s ease-in-out;transition:background .4s}
+    .hero { display: grid; grid-template-columns: 1fr minmax(280px, 420px); gap: 24px; align-items: start; margin-top: 24px; }
 
-    @keyframes fadeInUp{
-      from{opacity:0;transform:translateY(30px)}
-      to{opacity:1;transform:translateY(0)}
-    }
+    .hero-card { background: var(--glass); padding: 24px; border-radius: 14px; box-shadow:0 10px 30px rgba(27,94,32,0.06); transition: background .4s; }
+    .kicker { display:inline-block; padding:5px 10px; background: rgba(67,160,71,0.12); color: var(--green-mid); border-radius:999px; font-weight:700; font-size:12px; }
+    h2 { margin:12px 0 8px; font-size: clamp(22px, 5vw, 32px); }
+    p.lead { margin-bottom:16px; }
 
-    .kicker{display:inline-block;padding:6px 12px;background:rgba(67,160,71,0.12);color:var(--green-mid);border-radius:999px;font-weight:700;font-size:13px}
-    h2{margin:12px 0 8px;font-size:34px}
-    p.lead{margin:0 0 18px;color:inherit}
+    .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+    .pill { border:1px solid rgba(27,94,32,0.2); padding:8px 12px; border-radius:999px; font-weight:700; transition: transform .2s, color .3s; }
+    .pill:hover { transform: scale(1.05); }
 
-    .pill-list{display:flex;gap:10px;flex-wrap:wrap}
-    .pill{background:transparent;border:1px solid rgba(27,94,32,0.2);padding:10px 14px;border-radius:999px;font-weight:700;transition:transform .2s,color .3s}
-    .pill:hover{transform:scale(1.05)}
+    .features { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; }
+    .feature { flex:1; min-width:120px; background:transparent; padding:12px; border-radius:12px; transition: transform .3s; }
+    .feature:hover { transform: translateY(-4px); }
+    .feature h4 { margin-bottom:6px; }
 
-    .product-card{background:white;padding:22px;border-radius:12px;text-align:center;animation:fadeInUp 1.5s ease-in-out;transition:background .4s,color .4s}
-    body.dark .product-card{background:#1a2b1a;color:var(--text)}
+    .product-card { background:white; padding:18px; border-radius:12px; text-align:center; transition: background .4s,color .4s; }
+    body.dark .product-card { background:#1a2b1a; color: var(--text); }
+    .product-art img { max-width:100%; border-radius:12px; box-shadow:0 8px 20px rgba(27,94,32,0.1); transition: transform .3s; }
+    .product-art img:hover { transform: scale(1.05); }
 
-    .product-art img{max-width:100%;border-radius:12px;box-shadow:0 8px 20px rgba(27,94,32,0.1);transition:transform .3s}
-    .product-art img:hover{transform:scale(1.05)}
+    .countdown { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px; }
+    .countdown > div { background: linear-gradient(180deg,#fff,#f6fff6); padding:8px 10px; border-radius:8px; min-width:50px; text-align:center; transition: background .4s; }
+    body.dark .countdown > div { background: linear-gradient(180deg,#1f2d1f,#132013); }
+    .countdown .num { font-size:18px; font-weight:800; }
+    .countdown .lbl { font-size:11px; color:var(--green-light); }
 
-    .countdown{display:flex;gap:10px;justify-content:center;margin-top:18px}
-    .countdown > div{background:linear-gradient(180deg,#fff,#f6fff6);padding:10px 12px;border-radius:8px;min-width:64px;transition:background .4s}
-    body.dark .countdown > div{background:linear-gradient(180deg,#1f2d1f,#132013)}
-    .countdown .num{font-size:20px;font-weight:800}
-    .countdown .lbl{font-size:11px;color:var(--green-light)}
+    form.subscribe { display:flex; flex-direction: column; gap:8px; margin-top:12px; }
+    input[type=email] { padding:10px 12px; border-radius:8px; border:1px solid rgba(27,94,32,0.2); background:transparent; color:inherit; width:100%; }
+    button { background: var(--green-mid); color:white; border:0; padding:10px 14px; border-radius:8px; font-weight:700; transition: background .3s; cursor:pointer; }
+    button:hover { background: var(--green-dark); }
 
-    form.subscribe{display:flex;gap:8px;margin-top:18px}
-    input[type=email]{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(27,94,32,0.2);background:transparent;color:inherit}
-    button{background:var(--green-mid);color:white;border:0;padding:12px 16px;border-radius:10px;font-weight:800;transition:background .3s}
-    button:hover{background:var(--green-dark)}
+    .contact { margin-top:40px; padding:24px; background: var(--glass); border-radius:14px; box-shadow:0 8px 24px rgba(27,94,32,0.08); transition: background .4s; }
+    .contact form { display: grid; gap:12px; margin-top:12px; }
+    .contact input, .contact textarea { padding:10px; border-radius:8px; border:1px solid rgba(27,94,32,0.2); background:transparent; color:inherit; width:100%; }
+    .contact button { justify-self:start; background: var(--green-mid); color:#fff; border:0; padding:10px 16px; border-radius:8px; font-weight:700; transition: background .3s; }
+    .contact button:hover { background: var(--green-dark); }
 
-    .features{display:flex;gap:16px;margin-top:28px}
-    .feature{flex:1;background:transparent;padding:16px;border-radius:12px;transition:transform .3s}
-    .feature:hover{transform:translateY(-6px)}
-    .feature h4{margin:6px 0}
-
-    .contact{margin-top:60px;padding:32px;background:var(--glass);border-radius:14px;box-shadow:0 8px 24px rgba(27,94,32,0.08);animation:fadeInUp 1.8s ease-in-out;transition:background .4s}
-    .contact h2{margin-top:0}
-    .contact form{display:grid;gap:14px;margin-top:16px}
-    .contact input,.contact textarea{padding:12px;border-radius:10px;border:1px solid rgba(27,94,32,0.2);background:transparent;color:inherit}
-    .contact button{justify-self:start;background:var(--green-mid);color:#fff;border:0;padding:12px 20px;border-radius:10px;font-weight:700;transition:background .3s}
-    .contact button:hover{background:var(--green-dark)}
-
-    footer{margin-top:40px;padding:18px 8px;text-align:center;color:rgba(27,94,32,0.7);transition:color .4s}
-    body.dark footer{color:rgba(200,230,210,0.7)}
+    footer { margin-top:24px; padding:12px 8px; text-align:center; color:rgba(27,94,32,0.7); transition: color .4s; }
+    body.dark footer { color: rgba(200,230,210,0.7); }
 
     @media (max-width:900px){
-      .hero{grid-template-columns:1fr;}
-      .product-card{margin-top:12px}
-      .brand img{width:72px}
+      .hero { grid-template-columns: 1fr; }
+      .brand img { width: 60px; }
+      nav { justify-content: flex-start; }
+    }
+    @media (max-width:600px){
+      .pill-list { flex-direction: column; gap:6px; }
+      .features { flex-direction: column; gap:8px; }
+      form.subscribe { flex-direction: column; }
     }
   </style>
 </head>
@@ -150,16 +143,16 @@
       <div class="hero-card">
         <span class="kicker">NEW PRODUCT</span>
         <h2>Symbiote Yogurt — Healthy Gut, Healthy You</h2>
-        <p class="lead">Packed with <strong>300 Billion Probiotic</strong>, Symbiote Yogurt is crafted to strengthen gut health naturally. A fusion of biotech innovation and sustainable farming.</p>
+        <p class="lead">Packed with <strong>300 Billion Probiotic</strong>, Symbiote Yogurt strengthens gut health naturally.</p>
 
         <div class="pill-list">
-          <div class="pill">300 Billion  Probiotic</div>
+          <div class="pill">300 Billion Probiotic</div>
           <div class="pill">Non-GMO</div>
-          <div class="pill">Added prebiotic Fiber</div>
-          <div class="pill">12g Protin </div>
+          <div class="pill">Added Prebiotic Fiber</div>
+          <div class="pill">12g Protein</div>
           <div class="pill">Zero Added Sugar</div>
           <div class="pill">Reduced Lactose</div>
-          <div class="pill">Made Using Organic Dairy</div>
+          <div class="pill">Organic Dairy</div>
           <div class="pill">Gluten Free</div>
         </div>
 
@@ -183,7 +176,7 @@
         <div class="product-art">
           <img src="yogurt.png" alt="Symbiote Yogurt cup" />
         </div>
-        <h3 style="margin:14px 0 4px">Symbiote Yogurt</h3>
+        <h3 style="margin:12px 0 4px">Symbiote Yogurt</h3>
         <p style="margin:0;color:#356a3f;font-weight:700">Healthy Gut, Healthy You | 300 Billion Probiotic</p>
 
         <div class="countdown" aria-hidden="true">
@@ -197,54 +190,43 @@
           <input type="email" id="email" placeholder="Your email" required />
           <button type="submit">Notify me</button>
         </form>
-
-        <p id="msg" style="margin-top:12px;font-size:13px;color:#2b5d33"></p>
+        <p id="msg" style="margin-top:8px;font-size:13px;color:#2b5d33"></p>
       </aside>
     </section>
 
     <section class="contact" id="contact">
       <h2>Contact Us</h2>
-      <p>Have questions about Symbiote Yogurt or investment opportunities? Reach out to us!</p>
+      <p>Have questions? Reach out to us!</p>
       <form id="contactForm" onsubmit="handleContact(event)">
         <input type="text" id="name" name="name" placeholder="Your Name" required />
         <input type="email" id="contactEmail" name="email" placeholder="Your Email" required />
         <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
         <button type="submit">Send Message</button>
       </form>
-      <p id="contactMsg" style="margin-top:12px;font-size:13px;color:#2b5d33"></p>
+      <p id="contactMsg" style="margin-top:8px;font-size:13px;color:#2b5d33"></p>
     </section>
 
     <footer>
       <small>&copy; Symbiote Bio Labs — Healthy Gut, Healthy You.</small>
     </footer>
   </div>
+
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
-  (function(){
-    emailjs.init("QHnufqiJ7QvB5F-2z"); // your Public Key
-  })();
+  emailjs.init("QHnufqiJ7QvB5F-2z");
 
   function handleContact(e){
     e.preventDefault();
-
-    const form = e.target; // ✅ reference to the form itself
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('contactEmail').value.trim();
-    const message = document.getElementById('message').value.trim();
-
-    if(!name || !email || !message){return}
-
+    const form = e.target;
     emailjs.sendForm("service_w4iou3y", "template_2fnp4ns", form)
-      .then(function() {
+      .then(() => {
         document.getElementById("contactMsg").textContent = "✅ Message sent successfully!";
-        form.reset(); // ✅ clears all inputs safely
-      }, function(error) {
+        form.reset();
+      }, (error) => {
         document.getElementById("contactMsg").textContent = "❌ Failed to send: " + JSON.stringify(error);
       });
   }
-</script>
 
-<script>
   const launchDate = new Date();
   launchDate.setDate(launchDate.getDate() + 129);
 
@@ -266,22 +248,16 @@
   function handleSubscribe(e){
     e.preventDefault();
     const email = document.getElementById('email').value.trim();
-    if(!email){return}
+    if(!email) return;
     document.getElementById('msg').textContent = 'Thanks — we\'ll notify you at ' + email;
     document.getElementById('email').value='';
   }
 
-  // 🌙 Dark mode toggle with button text update
   function toggleDark(){
     document.body.classList.toggle('dark');
     const btn = document.querySelector('.toggle-btn');
-    if(document.body.classList.contains('dark')){
-      btn.textContent = '☀️ Light';
-    } else {
-      btn.textContent = '🌙 Dark';
-    }
+    btn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';
   }
 </script>
-
 </body>
 </html>
