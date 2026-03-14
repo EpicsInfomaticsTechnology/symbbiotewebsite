@@ -14,13 +14,18 @@
 
   <style>
         :root {
-      --green-light: #81C784;
-      --green-mid:  #43A047;
-      --green-dark: #1B5E20;
-      --bg: linear-gradient(180deg, #f8fff8 0%, #f1fff1 100%);
-      --text: var(--green-dark);
-      --glass: rgba(255,255,255,0.72);
-    }
+  --green-dark: #0f3d2e;
+  --green-mid: #1f6f54;
+  --green-light: #4fa87a;
+
+  --cream: #f5f3ee;
+  --yogurt: #ffffff;
+
+  --bg: linear-gradient(180deg,#f5f3ee 0%,#eef6f2 100%);
+  --text: #0f3d2e;
+
+  --glass: rgba(255,255,255,0.85);
+}
     body.dark {
       --bg: linear-gradient(180deg, #101b10 0%, #0b140b 100%);
       --text: #e3f3e6;
@@ -285,8 +290,13 @@
     .feature { flex:1; min-width:120px; background:transparent; padding:12px; border-radius:12px; transition: transform .3s; }
     .feature:hover { transform: translateY(-4px); }
     .feature h4 { margin-bottom:6px; }
-
-    .product-card { background:white; padding:18px; border-radius:12px; text-align:center; transition: background .4s,color .4s; }
+    .product-card{
+  background: linear-gradient(180deg,#ffffff,#f2f6f3);
+  border-radius:18px;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 20px 50px rgba(15,61,46,0.15);
+}
     body.dark .product-card { background:#1a2b1a; color: var(--text); }
     .product-art img { max-width:100%; border-radius:12px; box-shadow:0 8px 20px rgba(27,94,32,0.1); transition: transform .3s; }
     .product-art img:hover { transform: scale(1.05); }
@@ -342,6 +352,47 @@
       .features { flex-direction: column; gap:8px; }
       form.subscribe { flex-direction: column; }
     }
+    .slider{
+  position:relative;
+  overflow:hidden;
+  border-radius:12px;
+}
+
+.slides{
+  display:flex;
+  transition:transform .5s ease;
+}
+
+.slide{
+  min-width:100%;
+  text-align:center;
+}
+
+.slide img,
+.slide video{
+  width:100%;
+  border-radius:12px;
+}
+
+.prev, .next{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,0.5);
+  color:white;
+  border:none;
+  font-size:22px;
+  padding:8px 12px;
+  cursor:pointer;
+  border-radius:6px;
+}
+
+.prev{ left:10px; }
+.next{ right:10px; }
+
+.prev:hover, .next:hover{
+  background:rgba(0,0,0,0.8);
+}
   </style>
 </head>
 <body>
@@ -401,7 +452,31 @@
 
       <aside class="product-card" id="product">
         <div class="product-art">
-          <img src="yogurt.png" alt="Symbiote Yogurt cup" />
+          <div class="slider">
+
+            <div class="slides">
+
+              <div class="slide">
+                <img src="yogurt.png" alt="Yogurt Product">
+              </div>
+
+              <div class="slide">
+                <img src="symbiote_shop.png" alt="Store">
+              </div>
+
+              <div class="slide">
+                <video muted>
+                  <source src="yogurt-video.mp4" type="video/mp4">
+                </video>
+              </div>
+
+            </div>
+
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+
+          </div>
+
         </div>
         <h3 style="margin:12px 0 4px">Symbiote Yogurt</h3>
         <p style="margin:0;color:#356a3f;font-weight:700">Healthy Gut, Healthy You | 300 Billion Probiotic</p>
@@ -414,7 +489,7 @@
         </div>
 
         <form class="subscribe" id="subscribe" onsubmit="handleSubscribe(event)">
-          <input type="email" id="email" placeholder="Your email" required />
+          <input type="email" name="email" id="email" placeholder="Your email" required />
           <button type="submit">Notify me</button>
         </form>
         <p id="msg" style="margin-top:8px;font-size:13px;color:#2b5d33"></p>
@@ -453,6 +528,50 @@
   </div>
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
+  const slidesContainer = document.querySelector(".slides");
+const slides = document.querySelectorAll(".slide");
+
+let currentIndex = 0;
+
+function updateSlider() {
+
+  slidesContainer.style.transform =
+    `translateX(-${currentIndex * 100}%)`;
+
+  slides.forEach(slide => {
+    const video = slide.querySelector("video");
+    if(video){
+      video.pause();
+      video.currentTime = 0;
+    }
+  });
+
+  const activeSlide = slides[currentIndex];
+  const activeVideo = activeSlide.querySelector("video");
+
+  if(activeVideo){
+    activeVideo.play();
+  }
+
+}
+
+document.querySelector(".next").onclick = () => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  updateSlider();
+};
+
+document.querySelector(".prev").onclick = () => {
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  updateSlider();
+};
+
+/* AUTO SLIDE */
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  updateSlider();
+}, 5000);
+
+updateSlider();
   emailjs.init("QHnufqiJ7QvB5F-2z");
 
   function handleContact(e){
@@ -467,37 +586,48 @@
       });
   }
 
-  const launchDate = new Date();
-  launchDate.setDate(launchDate.getDate() + 129);
+ const launchDate = new Date("2026-05-15T09:00:00");
 
-  function updateCountdown(){
-    const now = new Date();
-    const diff = Math.max(0, launchDate - now);
-    const s = Math.floor(diff/1000)%60;
-    const m = Math.floor(diff/1000/60)%60;
-    const h = Math.floor(diff/1000/60/60)%24;
-    const d = Math.floor(diff/1000/60/60/24);
-    document.getElementById('days').textContent = String(d).padStart(2,'0');
-    document.getElementById('hours').textContent = String(h).padStart(2,'0');
-    document.getElementById('mins').textContent = String(m).padStart(2,'0');
-    document.getElementById('secs').textContent = String(s).padStart(2,'0');
-  }
-  setInterval(updateCountdown,1000);
-  updateCountdown();
+function updateCountdown(){
+  const now = new Date();
+  const diff = Math.max(0, launchDate - now);
+
+  const s = Math.floor(diff/1000)%60;
+  const m = Math.floor(diff/1000/60)%60;
+  const h = Math.floor(diff/1000/60/60)%24;
+  const d = Math.floor(diff/1000/60/60/24);
+
+  document.getElementById('days').textContent = String(d).padStart(2,'0');
+  document.getElementById('hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('secs').textContent = String(s).padStart(2,'0');
+}
+
+setInterval(updateCountdown,1000);
+updateCountdown();
 
   function handleSubscribe(e){
-    e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    if(!email) return;
-    document.getElementById('msg').textContent = 'Thanks — we\'ll notify you at ' + email;
-    document.getElementById('email').value='';
-  }
+  e.preventDefault();
 
-  function toggleDark(){
-    document.body.classList.toggle('dark');
-    const btn = document.querySelector('.toggle-btn');
-    btn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';
-  }
+  const email = document.getElementById("email").value;
+
+  emailjs.send("service_w4iou3y","template_2fnp4ns",{
+      email: email
+  })
+  .then(function() {
+
+      document.getElementById("msg").textContent =
+      "✅ Thanks! We'll notify you when Symbiote Yogurt launches.";
+
+      document.getElementById("email").value="";
+
+  }, function(error) {
+
+      document.getElementById("msg").textContent =
+      "❌ Failed to subscribe. Please try again.";
+
+  });
+}
 
   // Popup Logic
   const openPopup = document.getElementById("openPopup");
