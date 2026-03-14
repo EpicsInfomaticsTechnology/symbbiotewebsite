@@ -447,7 +447,7 @@
           </div>
         </div>
         <h3 style="margin-top:20px;color:var(--green-mid);">Our Team Structure</h3>
-        <img id="openPopup" src="symbiotebiolabs_founder.png" alt="Organizational Chart" style="max-width:100%;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.1);">
+        <img id="openPopup" src="symbiotebiolabs_founder.png" alt="Organizational Chart" style="margin-top: 10px;max-width:100%;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.1);">
       </div>
 
       <aside class="product-card" id="product">
@@ -554,6 +554,11 @@ function updateSlider() {
   }
 
 }
+
+function toggleDark(){
+     document.body.classList.toggle('dark');
+      const btn = document.querySelector('.toggle-btn'); 
+      btn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark'; }
 
 document.querySelector(".next").onclick = () => {
   currentIndex = (currentIndex + 1) % slides.length;
