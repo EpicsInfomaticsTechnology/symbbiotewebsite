@@ -10,6 +10,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
@@ -110,11 +111,7 @@ text-align:center;
 color:white;
 position:relative;
 overflow:hidden;
-
-background-image:url("symbiote_shop.png");
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
+background:linear-gradient(135deg,#02140c,#0f3d26,#02140c);
 }
 
 .hero::after{
@@ -124,20 +121,24 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.55);
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,0.6),
+rgba(0,0,0,0.4),
+rgba(0,0,0,0.7)
+);
 z-index:1;
 }
 
 .hero-content{
 position:relative;
 z-index:2;
-max-width:800px;
-padding:20px;
 }
 
 .hero h1{
 font-size:64px;
-margin-bottom:20px;
+font-weight:600;
+letter-spacing:1px;
 }
 
 .hero p{
@@ -628,6 +629,193 @@ cursor:pointer;
 
 .prev{ left:30px; }
 .next{ right:30px; }
+
+.scroll-indicator{
+position:absolute;
+bottom:40px;
+left:50%;
+transform:translateX(-50%);
+font-size:26px;
+opacity:0.8;
+animation:scrollBounce 2s infinite;
+}
+
+@keyframes scrollBounce{
+0%,100%{transform:translate(-50%,0);}
+50%{transform:translate(-50%,10px);}
+}
+
+.particles{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+overflow:hidden;
+z-index:1;
+}
+
+.particles span{
+position:absolute;
+display:block;
+width:6px;
+height:6px;
+background:#66bb6a;
+border-radius:50%;
+opacity:0.5;
+animation:floatParticles 15s linear infinite;
+}
+
+.particles span:nth-child(1){ left:10%; animation-duration:12s; }
+.particles span:nth-child(2){ left:30%; animation-duration:18s; }
+.particles span:nth-child(3){ left:50%; animation-duration:14s; }
+.particles span:nth-child(4){ left:70%; animation-duration:20s; }
+.particles span:nth-child(5){ left:85%; animation-duration:16s; }
+.particles span:nth-child(6){ left:60%; animation-duration:22s; }
+
+@keyframes floatParticles{
+0%{
+transform:translateY(100vh) scale(0);
+}
+100%{
+transform:translateY(-10vh) scale(1);
+}
+}
+
+@media(max-width:768px){
+
+nav{
+padding:12px 20px;
+}
+
+nav div{
+flex-wrap:wrap;
+justify-content:flex-end;
+}
+
+nav a{
+margin-left:15px;
+font-size:14px;
+}
+
+#themeToggle{
+margin-left:10px;
+padding:6px 10px;
+font-size:14px;
+}
+
+}
+
+@media(max-width:768px){
+.hero h1{
+font-size:38px;
+}
+.hero p{
+font-size:16px;
+}
+}
+
+@media(max-width:768px){
+
+.team{
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.member img{
+width:120px;
+height:160px;
+}
+
+.member h4{
+font-size:14px;
+}
+
+}
+
+@media(max-width:768px){
+
+.founder-message{
+padding:60px 20px;
+}
+
+.founder-container{
+gap:30px;
+}
+
+.founder-image img{
+width:200px;
+}
+
+.founder-text h2{
+font-size:22px;
+}
+
+.founder-text h3{
+font-size:14px;
+}
+
+}
+@media(max-width:768px){
+
+.investor{
+padding:50px 20px;
+}
+
+.investor p{
+max-width:100%;
+font-size:15px;
+line-height:1.5;
+}
+
+.investor h2{
+font-size:24px;
+}
+
+}
+
+@media(max-width:768px){
+
+.contact form{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:12px;
+}
+
+.contact input{
+width:100%;
+max-width:260px;
+}
+
+.contact button{
+margin-left:0;
+width:140px;
+}
+
+}
+.social-icons{
+margin-top:12px;
+display:flex;
+justify-content:center;
+gap:20px;
+}
+
+.social-icons a{
+font-size:22px;
+color:inherit;
+transition:0.3s;
+}
+
+.social-icons a:hover{
+transform:scale(1.2);
+color:var(--accent);
+}
+
+.footer-contact{
+margin-top:8px;
+line-height:1.6;
+}
 </style>
 
 
@@ -655,13 +843,22 @@ cursor:pointer;
 <!-- HERO -->
 
 <section class="hero">
+    <div class="scroll-indicator">↓</div>
 
+    <div class="particles">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
 <div class="hero-content">
 
 <h1>Advancing Microbial Science</h1>
-
-<p>Symbiosis is not a concept. It is the original design of life. We are simply bringing it back.</p>
-
+<p class="hero-tagline">
+Restoring the biological partnership between humans and their microbiome.
+</p>
 <div class="hero-buttons">
 <a class="btn-primary" href="#research">Explore Research</a>
 <a class="btn-outline" href="#product">View Product</a>
@@ -1005,7 +1202,32 @@ microbiome therapeutics, and precision nutrition.
 
 
 <footer>
-<p>© 2026 Symbiote Bio Labs</p>
+
+<p>© Symbiote Bio Labs — You become what you consume.</p>
+<p class="footer-contact">
+Phone: +91 96569 96229<br>
+Email: info@symbiotebiolabs.com
+</p>
+<div class="social-icons">
+
+<a href="https://www.instagram.com/symbiotebiolabs/" target="_blank">
+<i class="fa-brands fa-instagram"></i>
+</a>
+
+<a href="https://www.facebook.com/profile.php?id=61579930198292" target="_blank">
+<i class="fa-brands fa-facebook"></i>
+</a>
+
+<a href="https://www.linkedin.com/company/symbiote-bio-labs" target="_blank">
+<i class="fa-brands fa-linkedin"></i>
+</a>
+
+<a href="https://whatsapp.com/channel/0029VbBN7NnKbYMIcAv3aF0w" target="_blank">
+<i class="fa-brands fa-whatsapp"></i>
+</a>
+
+</div>
+
 </footer>
 
 
@@ -1150,6 +1372,10 @@ showFounder(founderIndex);
 }
 
 setInterval(nextFounder,7000);
+
+function toggleMenu(){
+document.querySelector("nav div").classList.toggle("show");
+}
 </script>
 
 </body>
