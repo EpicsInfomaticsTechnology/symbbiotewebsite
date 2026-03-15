@@ -1,660 +1,1156 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Symbiote Bio Labs — YOVA Yogurt</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
-  <link rel="apple-touch-icon" href="logo.png">
-  <meta name="description" content="Symbiote Bio Labs — Symbiote Yogurt. Healthy Gut, Healthy You. 300 Billion Probiotic." />
 
-  <!-- Font Awesome for social icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-        :root {
-  --green-dark: #0f3d2e;
-  --green-mid: #1f6f54;
-  --green-light: #4fa87a;
+<title>Symbiote Bio Labs</title>
+<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+<link rel="icon" type="image/png" sizes="16x16" href="logo.png">
 
-  --cream: #f5f3ee;
-  --yogurt: #ffffff;
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  --bg: linear-gradient(180deg,#f5f3ee 0%,#eef6f2 100%);
-  --text: #0f3d2e;
-
-  --glass: rgba(255,255,255,0.85);
-}
-    body.dark {
-      --bg: linear-gradient(180deg, #101b10 0%, #0b140b 100%);
-      --text: #e3f3e6;
-      --glass: rgba(20,30,20,0.65);
-    }
-
-    * { box-sizing: border-box; margin:0; padding:0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      transition: background .4s, color .4s;
-      line-height: 1.5;
-    }
-
-    .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: var(--bg);
-      padding: 12px 16px;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .container {
-      padding-top: 120px;
-    }
-
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand img { width: 72px; height: auto; }
-    .brand h1 { font-size: clamp(18px, 4vw, 22px); }
-    .brand p { font-weight: 600; color: var(--green-mid); margin:0; }
-
-    nav {
-      margin-left: auto;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    nav::-webkit-scrollbar { display: none; }
-
-    nav a { color: var(--text); text-decoration: none; font-weight: 600; position: relative; white-space: nowrap; }
-    nav a::after {
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-3px;
-      width:0;
-      height:2px;
-      background: var(--green-mid);
-      transition: width .3s;
-    }
-    nav a:hover::after { width:100%; }
-
-    .toggle-btn {
-      cursor:pointer;
-      border:0;
-      background:var(--green-mid);
-      color:white;
-      font-weight:700;
-      padding:6px 12px;
-      border-radius:8px;
-      transition: background .3s;
-      white-space: nowrap;
-    }
-    .toggle-btn:hover { background: var(--green-dark); }
-
-    .hero { display: grid; grid-template-columns: 1fr minmax(280px, 420px); gap: 24px; align-items: start; margin-top: 24px; }
-
-    .hero-card { background: var(--glass); padding: 24px; border-radius: 14px; box-shadow:0 10px 30px rgba(27,94,32,0.06); }
-
-    .kicker { display:inline-block; padding:5px 10px; background: rgba(67,160,71,0.12); color: var(--green-mid); border-radius:999px; font-weight:700; font-size:12px; }
-    h2 { margin:12px 0 8px; font-size: clamp(22px, 5vw, 32px); }
-    p.lead { margin-bottom:16px; }
-
-    .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
-    .pill { border:1px solid rgba(27,94,32,0.2); padding:8px 12px; border-radius:999px; font-weight:700; transition: transform .2s; }
-    .pill:hover { transform: scale(1.05); }
-
-    .features { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; }
-    .feature { flex:1; min-width:120px; }
-    .feature h4 { margin-bottom:6px; }
-
-    footer { 
-      margin-top:24px; 
-      padding:20px 8px; 
-      text-align:center; 
-      color:rgba(27,94,32,0.7); 
-    }
-
-    .footer-social {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-    }
-    .footer-social a {
-      color: var(--text);
-      font-size: 22px;
-      transition: color .3s;
-    }
-    .footer-social a:hover {
-      color: var(--green-mid);
-    }
-
-    /* ✅ Popup Styles */
-    .popup-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      animation: fadeIn .3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .popup-content {
-      position: relative;
-      background: #fff;
-      border-radius: 12px;
-      padding: 10px;
-      width: 90%;
-      max-width: 1200px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      animation: zoomIn .3s ease;
-    }
-    @keyframes zoomIn {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .popup-content img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-    }
-    .close-btn {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      font-size: 28px;
-      font-weight: bold;
-      color: #333;
-      cursor: pointer;
-    }
-    .close-btn:hover { color: var(--green-mid); }
-
-    @media (max-width:900px){ .hero { grid-template-columns: 1fr; } }
-    :root {
-      --green-light: #81C784;
-      --green-mid:  #43A047;
-      --green-dark: #1B5E20;
-      --bg: linear-gradient(180deg, #f8fff8 0%, #f1fff1 100%);
-      --text: var(--green-dark);
-      --glass: rgba(255,255,255,0.72);
-    }
-    body.dark {
-      --bg: linear-gradient(180deg, #101b10 0%, #0b140b 100%);
-      --text: #e3f3e6;
-      --glass: rgba(20,30,20,0.65);
-    }
-
-    * { box-sizing: border-box; margin:0; padding:0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      -webkit-font-smoothing: antialiased;
-      transition: background .4s, color .4s;
-      line-height: 1.5;
-    }
-
-    .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
-
-    /* ✅ Fixed Navbar */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: var(--bg);
-      padding: 12px 16px;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      transition: background .4s, color .4s;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .container {
-      padding-top: 120px; /* prevent content overlap */
-    }
-
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand img { width: 72px; height: auto; }
-    .brand h1 { font-size: clamp(18px, 4vw, 22px); letter-spacing: 1px; }
-    .brand p { font-weight: 600; color: var(--green-mid); margin:0; }
-
-    /* ✅ Scrollable navbar */
-    nav {
-      margin-left: auto;
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 12px;
-      align-items: center;
-      overflow-x: auto;
-      scrollbar-width: none; /* Firefox */
-    }
-    nav::-webkit-scrollbar { display: none; } /* Chrome, Safari */
-
-    nav a { color: var(--text); text-decoration: none; font-weight: 600; position: relative; white-space: nowrap; }
-    nav a::after {
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-3px;
-      width:0;
-      height:2px;
-      background: var(--green-mid);
-      transition: width .3s;
-    }
-    nav a:hover::after { width:100%; }
-
-    .toggle-btn {
-      cursor:pointer;
-      border:0;
-      background:var(--green-mid);
-      color:white;
-      font-weight:700;
-      padding:6px 12px;
-      border-radius:8px;
-      transition: background .3s;
-      white-space: nowrap;
-    }
-    .toggle-btn:hover { background: var(--green-dark); }
-
-    .hero { display: grid; grid-template-columns: 1fr minmax(280px, 420px); gap: 24px; align-items: start; margin-top: 24px; }
-
-    .hero-card { background: var(--glass); padding: 24px; border-radius: 14px; box-shadow:0 10px 30px rgba(27,94,32,0.06); transition: background .4s; }
-    .kicker { display:inline-block; padding:5px 10px; background: rgba(67,160,71,0.12); color: var(--green-mid); border-radius:999px; font-weight:700; font-size:12px; }
-    h2 { margin:12px 0 8px; font-size: clamp(22px, 5vw, 32px); }
-    p.lead { margin-bottom:16px; }
-
-    .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
-    .pill { border:1px solid rgba(27,94,32,0.2); padding:8px 12px; border-radius:999px; font-weight:700; transition: transform .2s, color .3s; }
-    .pill:hover { transform: scale(1.05); }
-
-    .features { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; }
-    .feature { flex:1; min-width:120px; background:transparent; padding:12px; border-radius:12px; transition: transform .3s; }
-    .feature:hover { transform: translateY(-4px); }
-    .feature h4 { margin-bottom:6px; }
-    .product-card{
-  background: linear-gradient(180deg,#ffffff,#f2f6f3);
-  border-radius:18px;
-  padding:22px;
-  text-align:center;
-  box-shadow:0 20px 50px rgba(15,61,46,0.15);
-}
-    body.dark .product-card { background:#1a2b1a; color: var(--text); }
-    .product-art img { max-width:100%; border-radius:12px; box-shadow:0 8px 20px rgba(27,94,32,0.1); transition: transform .3s; }
-    .product-art img:hover { transform: scale(1.05); }
-
-    .countdown { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px; }
-    .countdown > div { background: linear-gradient(180deg,#fff,#f6fff6); padding:8px 10px; border-radius:8px; min-width:50px; text-align:center; transition: background .4s; }
-    body.dark .countdown > div { background: linear-gradient(180deg,#1f2d1f,#132013); }
-    .countdown .num { font-size:18px; font-weight:800; }
-    .countdown .lbl { font-size:11px; color:var(--green-light); }
-
-    form.subscribe { display:flex; flex-direction: column; gap:8px; margin-top:12px; }
-    input[type=email] { padding:10px 12px; border-radius:8px; border:1px solid rgba(27,94,32,0.2); background:transparent; color:inherit; width:100%; }
-    button { background: var(--green-mid); color:white; border:0; padding:10px 14px; border-radius:8px; font-weight:700; transition: background .3s; cursor:pointer; }
-    button:hover { background: var(--green-dark); }
-
-    .contact { margin-top:40px; padding:24px; background: var(--glass); border-radius:14px; box-shadow:0 8px 24px rgba(27,94,32,0.08); transition: background .4s; }
-    .contact form { display: grid; gap:12px; margin-top:12px; }
-    .contact input, .contact textarea { padding:10px; border-radius:8px; border:1px solid rgba(27,94,32,0.2); background:transparent; color:inherit; width:100%; }
-    .contact button { justify-self:start; background: var(--green-mid); color:#fff; border:0; padding:10px 16px; border-radius:8px; font-weight:700; transition: background .3s; }
-    .contact button:hover { background: var(--green-dark); }
-
-    footer { 
-      margin-top:24px; 
-      padding:20px 8px; 
-      text-align:center; 
-      color:rgba(27,94,32,0.7); 
-      transition: color .4s; 
-    }
-    body.dark footer { color: rgba(200,230,210,0.7); }
-
-    /* ✅ Social icons in footer */
-    .footer-social {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-    }
-    .footer-social a {
-      color: var(--text);
-      font-size: 22px;
-      transition: color .3s;
-    }
-    .footer-social a:hover {
-      color: var(--green-mid);
-    }
-
-    @media (max-width:900px){
-      .hero { grid-template-columns: 1fr; }
-      .brand img { width: 60px; }
-    }
-    @media (max-width:600px){
-      .pill-list { flex-direction: column; gap:6px; }
-      .features { flex-direction: column; gap:8px; }
-      form.subscribe { flex-direction: column; }
-    }
-    .slider{
-  position:relative;
-  overflow:hidden;
-  border-radius:12px;
-}
-
-.slides{
-  display:flex;
-  transition:transform .5s ease;
-}
-
-.slide{
-  min-width:100%;
-  text-align:center;
-}
-
-.slide img,
-.slide video{
-  width:100%;
-  border-radius:12px;
-}
-
-.prev, .next{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:rgba(0,0,0,0.5);
-  color:white;
-  border:none;
-  font-size:22px;
-  padding:8px 12px;
-  cursor:pointer;
-  border-radius:6px;
-}
-
-.prev{ left:10px; }
-.next{ right:10px; }
-
-.prev:hover, .next:hover{
-  background:rgba(0,0,0,0.8);
-}
-  </style>
 </head>
+
+<style>
+
+/* GLOBAL */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+transition:background 0.3s,color 0.3s;
+}
+
+/* THEME VARIABLES */
+
+:root{
+--bg:#f6faf7;
+--text:#1B5E20;
+--card-bg:white;
+--nav-bg:rgba(255,255,255,0.85);
+--accent:#43A047;
+}
+
+body.dark{
+--bg:#0f1a13;
+--text:#e8f5e9;
+--card-bg:#1c2a22;
+--nav-bg:rgba(20,30,25,0.9);
+--accent:#66bb6a;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.6;
+}
+
+/* NAVBAR */
+
+nav{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 60px;
+background:var(--nav-bg);
+backdrop-filter:blur(10px);
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+z-index:1000;
+}
+
+nav img{
+height:40px;
+}
+
+nav div{
+display:flex;
+align-items:center;
+}
+
+nav a{
+margin-left:30px;
+text-decoration:none;
+color:var(--text);
+font-weight:500;
+}
+
+nav a:hover{
+color:var(--accent);
+}
+
+#themeToggle{
+margin-left:30px;
+padding:8px 14px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+background:var(--accent);
+color:white;
+font-size:16px;
+}
+
+/* HERO */
+
+.hero{
+width:100%;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+position:relative;
+overflow:hidden;
+
+background-image:url("symbiote_shop.png");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+z-index:1;
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+max-width:800px;
+padding:20px;
+}
+
+.hero h1{
+font-size:64px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:20px;
+opacity:0.9;
+margin-bottom:30px;
+}
+
+.hero-buttons{
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+}
+
+/* BUTTONS */
+
+.btn-primary{
+background:white;
+color:#1B5E20;
+padding:14px 28px;
+border-radius:30px;
+text-decoration:none;
+font-weight:500;
+}
+
+.btn-primary:hover{
+transform:translateY(-4px);
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.btn-outline{
+border:2px solid white;
+padding:14px 28px;
+border-radius:30px;
+color:white;
+text-decoration:none;
+}
+
+.btn-outline:hover{
+background:white;
+color:#1B5E20;
+}
+
+/* HERO CIRCLE */
+
+.hero::before{
+content:"";
+position:absolute;
+width:800px;
+height:800px;
+background:rgba(255,255,255,0.07);
+border-radius:50%;
+top:-250px;
+left:-200px;
+animation:spin 30s linear infinite;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg)}
+100%{transform:rotate(360deg)}
+}
+
+/* CONTAINER */
+
+.container{
+padding:100px 60px;
+max-width:1200px;
+margin:auto;
+}
+
+/* PRODUCT */
+
+.product{
+display:flex;
+gap:60px;
+align-items:flex-start;
+flex-wrap:wrap;
+margin-top:40px;
+}
+
+/* MEDIA GRID */
+
+.product-media{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+max-width:420px;
+}
+
+/* IMAGES */
+
+.product-media img{
+width:100%;
+border-radius:12px;
+object-fit:cover;
+transition:0.3s;
+}
+
+.product-media img:hover{
+transform:scale(1.04);
+}
+
+/* VIDEO */
+
+.product-media video{
+width:100%;
+border-radius:12px;
+object-fit:cover;
+}
+
+/* PRODUCT INFO */
+
+.product-info{
+max-width:500px;
+}
+
+/* BADGES */
+
+.badges{
+margin-top:15px;
+}
+
+.badges span{
+background:#e8f5e9;
+padding:8px 14px;
+border-radius:20px;
+margin:6px;
+display:inline-block;
+font-size:14px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.product{
+flex-direction:column;
+align-items:center;
+text-align:center;
+}
+
+.product-media{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+/* RESEARCH */
+
+.research-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+margin-top:40px;
+}
+
+.card{
+background:var(--card-bg);
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 20px rgba(0,0,0,0.05);
+}
+
+.card:hover{
+transform:translateY(-6px);
+}
+
+/* TEAM */
+
+.team{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:30px;
+margin-top:40px;
+text-align:center;
+}
+
+.member img{
+width:160px;
+height:220px;
+object-fit:cover;
+border-radius:10px;
+margin-bottom:10px;
+cursor:pointer;
+}
+
+.member img:hover{
+transform:scale(1.05);
+}
+
+/* INVESTOR */
+
+.investor{
+background:var(--card-bg);
+padding:80px 60px;
+text-align:center;
+}
+
+/* CONTACT */
+
+.contact{
+text-align:center;
+padding:80px 20px;
+background:var(--bg);
+}
+
+.contact input{
+padding:12px;
+width:260px;
+border-radius:6px;
+border:1px solid #ccc;
+background:var(--card-bg);
+color:var(--text);
+}
+
+.contact button{
+padding:12px 20px;
+border:none;
+background:var(--accent);
+color:white;
+border-radius:6px;
+margin-left:10px;
+cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:30px;
+margin-top:60px;
+}
+
+/* Light mode */
+body:not(.dark) footer{
+background:#1B5E20;
+color:white;
+}
+
+/* Dark mode */
+body.dark footer{
+background:#0b2a1a;
+color:#e8f5e9;
+}
+/* BACK TO TOP */
+
+.back-to-top{
+position:fixed;
+bottom:30px;
+right:30px;
+width:50px;
+height:50px;
+background:var(--accent);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+text-decoration:none;
+border-radius:50%;
+box-shadow:0 6px 15px rgba(0,0,0,0.2);
+opacity:0;
+visibility:hidden;
+transition:0.3s;
+z-index:999;
+}
+
+.back-to-top.show{
+opacity:1;
+visibility:visible;
+}
+
+/* PORTFOLIO MODAL */
+
+.portfolio-modal{
+display:none;
+position:fixed;
+z-index:3000;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+justify-content:center;
+align-items:center;
+}
+
+.portfolio-content{
+max-width:90%;
+max-height:90%;
+border-radius:10px;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:35px;
+font-size:40px;
+color:white;
+cursor:pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:40px;
+}
+
+nav{
+padding:15px 30px;
+}
+
+.product{
+flex-direction:column;
+text-align:center;
+}
+
+.hero-buttons{
+flex-direction:column;
+}
+
+}
+
+/* FOUNDER QUOTE */
+/* FOUNDER QUOTES */
+
+.founder-quote{
+padding:120px 20px;
+text-align:center;
+background:linear-gradient(135deg,#0f3d26,#02140c);
+color:white;
+overflow:hidden;
+}
+
+body.dark .founder-quote{
+background:linear-gradient(135deg,#02140c,#010a07);
+}
+
+.quote-container{
+max-width:900px;
+margin:auto;
+}
+
+.quote{
+display:none;
+font-size:28px;
+line-height:1.6;
+font-weight:500;
+}
+
+.quote.active{
+display:block;
+animation:fadeQuote 1.5s ease;
+}
+
+.quote-author{
+margin-top:25px;
+font-size:16px;
+opacity:0.8;
+}
+
+@keyframes fadeQuote{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* QUOTE NAVIGATION */
+
+.quote-nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+width:55px;
+height:55px;
+border-radius:50%;
+border:none;
+background:rgba(255,255,255,0.15);
+color:white;
+font-size:26px;
+cursor:pointer;
+backdrop-filter:blur(6px);
+transition:0.3s;
+}
+
+.quote-nav:hover{
+background:var(--accent);
+transform:translateY(-50%) scale(1.1);
+}
+
+.quote-prev{
+left:40px;
+}
+
+.quote-next{
+right:40px;
+}
+
+/* Needed so arrows position correctly */
+
+.founder-quote{
+position:relative;
+}
+
+
+
+/* FOUNDER SLIDER */
+
+
+.founder-message{
+padding:120px 60px;
+background:linear-gradient(135deg,#0f3d26,#02140c);
+color:white;
+position:relative;
+overflow:hidden;
+}
+
+.founder-container{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:80px;
+max-width:1200px;
+margin:auto;
+flex-wrap:wrap;
+}
+
+.founder-image img{
+width:320px;
+border-radius:12px;
+}
+
+.founder-text{
+max-width:600px;
+}
+
+.founder-text h3{
+opacity:0.7;
+margin-bottom:10px;
+}
+
+.founder-text h2{
+font-size:36px;
+line-height:1.4;
+margin-bottom:20px;
+}
+
+.author span{
+font-size:14px;
+opacity:0.7;
+}
+
+.founder-slide{
+display:none;
+}
+
+.founder-slide.active{
+display:block;
+animation:fadeFounder 1s ease;
+}
+
+@keyframes fadeFounder{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+.founder-nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(255,255,255,0.2);
+border:none;
+color:white;
+font-size:24px;
+width:50px;
+height:50px;
+border-radius:50%;
+cursor:pointer;
+}
+
+.prev{ left:30px; }
+.next{ right:30px; }
+</style>
+
+
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <img src="logo.png" alt="Symbiote Bio Labs logo" />
-        <div>
-          <h1>Symbiote Bio Labs</h1>
-          <p>YOVA YOGURT — You become what you consume</p>
-        </div>
-      </div>
-      <nav>
-        <a href="#product">Product</a>
-        <a href="#about">About</a>
-        <a href="#subscribe">Notify me</a>
-        <a href="#contact">Contact</a>
-        <button class="toggle-btn" onclick="toggleDark()">🌙 Dark</button>
-      </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-card" id="about">
-        <span class="kicker">NEW PRODUCT</span>
-        <h2>YOVA YOGURT — You become what you consume</h2>
-        <p class="lead">Packed with <strong>300 Billion Probiotic</strong>, YOVA Yogurt strengthens gut health naturally.</p>
+<!-- NAVBAR -->
 
-        <div class="pill-list">
-          <div class="pill">300 Billion Probiotic</div>
-          <div class="pill">Non-GMO</div>
-          <div class="pill">Added Prebiotic Fiber</div>
-          <div class="pill">12g Protein</div>
-          <div class="pill">Zero Added Sugar</div>
-          <div class="pill">Reduced Lactose</div>
-          <div class="pill">Organic Dairy</div>
-          <div class="pill">Gluten Free</div>
-        </div>
+<nav>
 
-        <div class="features">
-          <div class="feature">
-            <h4>Clinically Proven</h4>
-            <p>Backed by science to support digestive health.</p>
-          </div>
-          <div class="feature">
-            <h4>Eco-Friendly</h4>
-            <p>Low-waste packaging aligned with nature.</p>
-          </div>
-          <div class="feature">
-            <h4>Delicious</h4>
-            <p>Balanced taste and probiotics in every spoonful.</p>
-          </div>
-        </div>
-        <h3 style="margin-top:20px;color:var(--green-mid);">Our Team Structure</h3>
-        <img id="openPopup" src="symbiotebiolabs_founder.png" alt="Organizational Chart" style="margin-top: 10px;max-width:100%;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.1);">
-      </div>
+<img src="logo.png">
 
-      <aside class="product-card" id="product">
-        <div class="product-art">
-          <div class="slider">
+<div>
+<a href="#product">Product</a>
+<a href="#research">Research</a>
+<a href="#team">Team</a>
+<a href="#contact">Contact</a>
 
-            <div class="slides">
+<button id="themeToggle">🌙</button>
 
-              <div class="slide">
-                <img src="yogurt.png" alt="Yogurt Product">
-              </div>
+</div>
 
-              <div class="slide">
-                <img src="symbiote_shop.png" alt="Store">
-              </div>
+</nav>
 
-              <div class="slide">
-                <video muted>
-                  <source src="yogurt-video.mp4" type="video/mp4">
-                </video>
-              </div>
 
-            </div>
+<!-- HERO -->
 
-            <button class="prev">&#10094;</button>
-            <button class="next">&#10095;</button>
+<section class="hero">
 
-          </div>
+<div class="hero-content">
 
-        </div>
-        <h3 style="margin:12px 0 4px">YOVA YOGURT</h3>
-        <p style="margin:0;color:#356a3f;font-weight:700">You become what you consume.</p>
+<h1>Advancing Microbial Science</h1>
 
-        <div class="countdown" aria-hidden="true">
-          <div><div class="num" id="days">00</div><div class="lbl">Days</div></div>
-          <div><div class="num" id="hours">00</div><div class="lbl">Hours</div></div>
-          <div><div class="num" id="mins">00</div><div class="lbl">Mins</div></div>
-          <div><div class="num" id="secs">00</div><div class="lbl">Secs</div></div>
-        </div>
+<p>Symbiosis is not a concept. It is the original design of life. We are simply bringing it back.</p>
 
-        <form class="subscribe" id="subscribe" onsubmit="handleSubscribe(event)">
-          <input type="email" name="email" id="email" placeholder="Your email" required />
-          <button type="submit">Notify me</button>
-        </form>
-        <p id="msg" style="margin-top:8px;font-size:13px;color:#2b5d33"></p>
-      </aside>
-    </section>
+<div class="hero-buttons">
+<a class="btn-primary" href="#research">Explore Research</a>
+<a class="btn-outline" href="#product">View Product</a>
+</div>
 
-    <!-- Contact -->
-    <section class="contact" id="contact">
-      <h2>Contact Us</h2>
-      <p>Have questions? Reach out to us!</p>
-      <form id="contactForm" onsubmit="handleContact(event)">
-        <input type="text" id="name" name="name" placeholder="Your Name" required />
-        <input type="email" id="contactEmail" name="email" placeholder="Your Email" required />
-        <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-      <p id="contactMsg" style="margin-top:8px;font-size:13px;color:#2b5d33"></p>
-    </section>
-    <div class="popup-overlay" id="popup">
-    <div class="popup-content">
-      <span class="close-btn" id="closePopup">&times;</span>
-      <img src="symbiotebiolabs_founder.png" alt="Full Organizational Chart">
-    </div>
-  </div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-      <small>&copy; Symbiote Bio Labs — You become what you consume.</small>
-      <div class="footer-social">
-        <a href="https://www.instagram.com/symbiotebiolabs/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.facebook.com/profile.php?id=61579930198292" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="https://www.linkedin.com/company/symbiote-bio-labs" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://whatsapp.com/channel/0029VbBN7NnKbYMIcAv3aF0w" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </footer>
-  </div>
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</section>
+
+
+<!-- PRODUCT -->
+
+<div class="container" id="product">
+
+<h2>YOVA Yogurt</h2>
+
+<div class="product">
+
+<div class="product-media">
+
+<img src="yogurt.png">
+
+<img src="yougurt1.png">
+
+<video autoplay muted loop playsinline>
+<source src="yogurt-video.mp4" type="video/mp4">
+</video>
+
+<img src="yogurt3.png">
+
+</div>
+
+<div class="product-info">
+
+<p>
+YOVA Yogurt is a next-generation probiotic yogurt formulated with
+<b>300 Billion live cultures</b> to support digestive health and microbiome balance.
+</p>
+
+<div class="badges">
+<span>300 Billion Probiotic</span>
+<span>Non-GMO</span>
+<span>Prebiotic Fiber</span>
+<span>12g Protein</span>
+<span>Zero Added Sugar</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RESEARCH -->
+
+<div class="container" id="research">
+
+<h2>Research & Innovation</h2>
+
+<div class="research-grid">
+
+<div class="card">
+<h3>Microbiome Engineering</h3>
+<p>Developing advanced probiotic strains for gut health optimization.</p>
+</div>
+
+<div class="card">
+<h3>Precision Fermentation</h3>
+<p>Advanced fermentation techniques for functional nutrition products.</p>
+</div>
+
+<div class="card">
+<h3>Gut-Brain Axis</h3>
+<p>Exploring the connection between microbiome and cognitive health.</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- FOUNDER QUOTE -->
+
+<section class="founder-quote">
+
+<div class="quote-container">
+
+<div class="quote active">
+“Healthcare today treats symptoms.
+Food today fills stomachs.
+At Symbiote Bio Labs, we are building something different —
+food that restores biology itself.”
+<div class="quote-author">Marshall Benfred — Founder</div>
+</div>
+
+<div class="quote">
+“The future of wellness will not be pharmaceutical.
+It will be nutritional, microbial, and deeply personal.
+Symbiote Bio Labs exists to restore the forgotten partnership between humans and their microbiome.”
+<div class="quote-author">Investor Vision</div>
+</div>
+
+<div class="quote">
+“You become what you consume — so we built food that helps you become better.”
+<div class="quote-author">Signature Quote</div>
+</div>
+
+<div class="quote">
+“We are not selling yogurt.
+We are rebuilding the microbiome of a generation.”
+<div class="quote-author">Disruptor Vision</div>
+</div>
+
+<div class="quote">
+“Somewhere along the way, humanity forgot that health begins in the gut.
+We are simply helping it remember.”
+<div class="quote-author">Founder Reflection</div>
+</div>
+
+<div class="quote">
+“Restoring the biology that modern life erased.”
+<div class="quote-author">Marshall Benfred — Symbiote Bio Labs</div>
+</div>
+
+<!-- Manual Controls -->
+
+<button class="quote-nav quote-prev" onclick="prevQuote()">❮</button>
+<button class="quote-nav quote-next" onclick="nextQuote()">❯</button>
+
+</div>
+
+</section>
+<!-- TEAM -->
+
+
+<!-- TEAM -->
+
+<div class="container" id="team">
+
+<h2>Founders</h2>
+
+<div class="team">
+
+<div class="member">
+<img src="marshal.png" onclick="openPortfolio('marshal_potfolio.png')">
+<h4>Marshal Benfred</h4>
+</div>
+
+<div class="member">
+<img src="sangeeth.png" onclick="openPortfolio('sangeeth_portfolio.png')">
+<h4>Sangeeth T</h4>
+</div>
+
+<div class="member">
+<img src="aadith.png" onclick="openPortfolio('aadith_portfolio.png')">
+<h4>Aadith Punathil</h4>
+</div>
+
+<div class="member">
+<img src="akshay.png">
+<h4>Akshay R</h4>
+</div>
+
+</div>
+
+</div>
+
+<section class="founder-message">
+
+<div class="founder-slider">
+
+<div class="founder-slide active">
+
+<div class="founder-container">
+
+<div class="founder-image">
+<img src="marshal.png">
+</div>
+
+<div class="founder-text">
+
+<h3>Vision</h3>
+
+<h2>
+“Precision in every experiment,
+excellence in every result.”
+</h2>
+
+<p class="author">
+Marshall Benfred<br>
+<span>CEO — Symbiote Bio Labs</span>
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="founder-slide">
+
+<div class="founder-container">
+
+<div class="founder-image">
+<img src="sangeeth.png">
+</div>
+
+<div class="founder-text">
+
+<h3>Vision</h3>
+
+<h2>
+“Symbiosis is not a concept.
+It is the original design of life.
+We are simply bringing it back.”
+</h2>
+
+<p class="author">
+Sangeeth T<br>
+<span>CSO — Symbiote Bio Labs</span>
+</p>
+
+</div>
+</div>
+</div>
+
+
+<div class="founder-slide">
+
+<div class="founder-container">
+
+<div class="founder-image">
+<img src="aadith.png">
+</div>
+
+<div class="founder-text">
+
+<h3>Vision</h3>
+
+<h2>
+“The future of nutrition
+will be microbial,
+precision-driven,
+and deeply personal.”
+</h2>
+
+<p class="author">
+Aadith Punathil<br>
+<span>COO — Symbiote Bio Labs</span>
+</p>
+
+</div>
+</div>
+</div>
+
+<div class="founder-slide">
+
+<div class="founder-container">
+
+<div class="founder-image">
+<img src="akshay.png">
+</div>
+
+<div class="founder-text">
+
+<h3>Vision</h3>
+
+<h2>
+“The future of nutrition will not be defined by calories alone,
+but by the living ecosystems that support human health.”
+</h2>
+
+<p class="author">
+Akshay R<br>
+<span>CTO — Symbiote Bio Labs</span>
+</p>
+
+</div>
+</div>
+</div>
+
+<button class="founder-nav prev" onclick="prevFounder()">❮</button>
+<button class="founder-nav next" onclick="nextFounder()">❯</button>
+
+</div>
+
+</section>
+
+
+<!-- INVESTOR -->
+
+<section class="investor">
+
+<h2>Investor Opportunity</h2>
+
+<p style="max-width:800px;margin:auto;margin-top:20px;">
+The microbiome represents one of the largest untapped frontiers in
+human health. Symbiote Bio Labs is building a new category of
+microbiome-first nutrition products designed to restore the biological
+balance modern lifestyles have disrupted.
+</p>
+
+<br>
+
+<p style="max-width:750px;margin:auto;">
+Our first product, YOVA Yogurt, introduces high-density probiotic
+nutrition engineered for real microbiome impact. This is the
+foundation of a broader platform spanning functional foods,
+microbiome therapeutics, and precision nutrition.
+</p>
+
+<br><br>
+
+<a href="#contact" class="btn-primary">Connect With Us</a>
+
+</section>
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+<h2>Get Product Launch Updates</h2>
+<br>
+
+<form action="https://formsubmit.co/info@symbiotebiolabs.com" method="POST">
+
+<input type="email" name="email" placeholder="Your email" required>
+
+<button type="submit">Notify Me</button>
+
+<input type="hidden" name="_subject" value="New Symbiote Launch Subscriber">
+<input type="hidden" name="_captcha" value="false">
+
+<!-- redirect back to your site -->
+<input type="hidden" name="_next" value="https://symbiotebiolabs.com/#contact">
+
+</form>
+
+</section>
+
+
+<footer>
+<p>© 2026 Symbiote Bio Labs</p>
+</footer>
+
+
+<!-- BACK TO TOP -->
+
+<a href="#" class="back-to-top">↑</a>
+
+
+<!-- PORTFOLIO MODAL -->
+
+<div id="portfolioModal" class="portfolio-modal">
+
+<span class="close" onclick="closePortfolio()">×</span>
+
+<img id="portfolioImage" class="portfolio-content">
+
+</div>
+
+
 <script>
-  const slidesContainer = document.querySelector(".slides");
-const slides = document.querySelectorAll(".slide");
 
-let currentIndex = 0;
+/* BACK TO TOP */
 
-function updateSlider() {
+const backToTop = document.querySelector(".back-to-top");
 
-  slidesContainer.style.transform =
-    `translateX(-${currentIndex * 100}%)`;
+window.addEventListener("scroll", () => {
 
-  slides.forEach(slide => {
-    const video = slide.querySelector("video");
-    if(video){
-      video.pause();
-      video.currentTime = 0;
-    }
-  });
+if(window.scrollY > 400){
+backToTop.classList.add("show");
+}else{
+backToTop.classList.remove("show");
+}
 
-  const activeSlide = slides[currentIndex];
-  const activeVideo = activeSlide.querySelector("video");
+});
 
-  if(activeVideo){
-    activeVideo.play();
-  }
+/* PORTFOLIO MODAL */
+
+function openPortfolio(image){
+
+const modal = document.getElementById("portfolioModal");
+const modalImg = document.getElementById("portfolioImage");
+
+modal.style.display = "flex";
+modalImg.src = image;
 
 }
 
-function toggleDark(){
-     document.body.classList.toggle('dark');
-      const btn = document.querySelector('.toggle-btn'); 
-      btn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark'; }
+function closePortfolio(){
 
-document.querySelector(".next").onclick = () => {
-  currentIndex = (currentIndex + 1) % slides.length;
-  updateSlider();
-};
+document.getElementById("portfolioModal").style.display = "none";
 
-document.querySelector(".prev").onclick = () => {
-  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-  updateSlider();
-};
+}
 
-/* AUTO SLIDE */
+/* THEME TOGGLE */
+
+const toggle = document.getElementById("themeToggle");
+
+toggle.addEventListener("click", () => {
+
+document.body.classList.toggle("dark");
+
+if(document.body.classList.contains("dark")){
+toggle.textContent="☀️";
+localStorage.setItem("theme","dark");
+}else{
+toggle.textContent="🌙";
+localStorage.setItem("theme","light");
+}
+
+});
+
+const savedTheme = localStorage.getItem("theme");
+
+if(savedTheme){
+if(savedTheme==="dark"){
+document.body.classList.add("dark");
+toggle.textContent="☀️";
+}
+}
+
+if(!savedTheme){
+
+const hour = new Date().getHours();
+
+if(hour >= 18 || hour < 6){
+document.body.classList.add("dark");
+toggle.textContent="☀️";
+}
+
+}
+
+/* QUOTE ROTATION + MANUAL CONTROL */
+
+const quotes = document.querySelectorAll(".quote");
+let quoteIndex = 0;
+
+function showQuote(index){
+
+quotes.forEach(q => q.classList.remove("active"));
+quotes[index].classList.add("active");
+
+}
+
+function nextQuote(){
+
+quoteIndex = (quoteIndex + 1) % quotes.length;
+showQuote(quoteIndex);
+
+}
+
+function prevQuote(){
+
+quoteIndex = (quoteIndex - 1 + quotes.length) % quotes.length;
+showQuote(quoteIndex);
+
+}
+
+/* Auto rotation */
+
 setInterval(() => {
-  currentIndex = (currentIndex + 1) % slides.length;
-  updateSlider();
-}, 5000);
 
-updateSlider();
-  emailjs.init("QHnufqiJ7QvB5F-2z");
+nextQuote();
 
-  function handleContact(e){
-    e.preventDefault();
-    const form = e.target;
-    emailjs.sendForm("service_w4iou3y", "template_2fnp4ns", form)
-      .then(() => {
-        document.getElementById("contactMsg").textContent = "✅ Message sent successfully!";
-        form.reset();
-      }, (error) => {
-        document.getElementById("contactMsg").textContent = "❌ Failed to send: " + JSON.stringify(error);
-      });
-  }
+}, 6000);
 
- const launchDate = new Date("2026-05-15T09:00:00");
+const founderSlides = document.querySelectorAll(".founder-slide");
+let founderIndex = 0;
 
-function updateCountdown(){
-  const now = new Date();
-  const diff = Math.max(0, launchDate - now);
-
-  const s = Math.floor(diff/1000)%60;
-  const m = Math.floor(diff/1000/60)%60;
-  const h = Math.floor(diff/1000/60/60)%24;
-  const d = Math.floor(diff/1000/60/60/24);
-
-  document.getElementById('days').textContent = String(d).padStart(2,'0');
-  document.getElementById('hours').textContent = String(h).padStart(2,'0');
-  document.getElementById('mins').textContent = String(m).padStart(2,'0');
-  document.getElementById('secs').textContent = String(s).padStart(2,'0');
+function showFounder(index){
+founderSlides.forEach(s => s.classList.remove("active"));
+founderSlides[index].classList.add("active");
 }
 
-setInterval(updateCountdown,1000);
-updateCountdown();
-
-  function handleSubscribe(e){
-  e.preventDefault();
-
-  const email = document.getElementById("email").value;
-
-  emailjs.send("service_w4iou3y","template_2fnp4ns",{
-      email: email
-  })
-  .then(function() {
-
-      document.getElementById("msg").textContent =
-      "✅ Thanks! We'll notify you when Symbiote Yogurt launches.";
-
-      document.getElementById("email").value="";
-
-  }, function(error) {
-
-      document.getElementById("msg").textContent =
-      "❌ Failed to subscribe. Please try again.";
-
-  });
+function nextFounder(){
+founderIndex = (founderIndex + 1) % founderSlides.length;
+showFounder(founderIndex);
 }
 
-  // Popup Logic
-  const openPopup = document.getElementById("openPopup");
-  const popup = document.getElementById("popup");
-  const closePopup = document.getElementById("closePopup");
+function prevFounder(){
+founderIndex = (founderIndex - 1 + founderSlides.length) % founderSlides.length;
+showFounder(founderIndex);
+}
 
-  openPopup.addEventListener("click", () => {
-    popup.style.display = "flex";
-    document.body.style.overflow = "hidden";
-  });
-
-  closePopup.addEventListener("click", () => {
-    popup.style.display = "none";
-    document.body.style.overflow = "auto";
-  });
-
-  popup.addEventListener("click", (e) => {
-    if (e.target === popup) {
-      popup.style.display = "none";
-      document.body.style.overflow = "auto";
-    }
-  });
+setInterval(nextFounder,7000);
 </script>
+
 </body>
 </html>
